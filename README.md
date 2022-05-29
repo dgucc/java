@@ -28,7 +28,7 @@ Add zxing dependencies in the pom.xml :
 
 Java sample to generate a Wi-Fi QR-Code (png)  
 
-> src/main/java/example/App.java  
+> src/main/java/com/example/App.java  
 
 Compile and execute  
 
