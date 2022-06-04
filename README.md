@@ -38,6 +38,6 @@ Compile and execute
 
 Look at the generated QR-Code "WIFI-SSID.png"  
 
-Scan the QR-Code with your smartphone to connect the Wi-Fi  
+Scan the QR-Code with your smartphone to connect the related Wi-Fi  
 > 'WIFI:S:WIFI-SSID;T:WPA;P:WIFI-PASSWORD;H:false;;'  
 
