@@ -9,8 +9,8 @@ Sample to generate QRCode for WiFi
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-	@SuppressWarnings("unchecked")
-    public static void disableAccessWarnings() {
+@SuppressWarnings("unchecked")
+public static void disableAccessWarnings() {
         try {
             Class unsafeClass = Class.forName("sun.misc.Unsafe");
             Field field = unsafeClass.getDeclaredField("theUnsafe");
@@ -26,10 +26,10 @@ import java.lang.reflect.Method;
             putObjectVolatile.invoke(unsafe, loggerClass, offset, null);
         } catch (Exception ignored) {
         }
-	}
+}
 
-	public static void main(String[] args) {
-		disableAccessWarnings();
+public static void main(String[] args) {
+	disableAccessWarnings();
 		...
-	}
+}
 ```  
