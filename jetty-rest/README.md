@@ -7,8 +7,14 @@
 + d3js
 
 
-## start jetty : 
+## start jetty :  
 
+execute src/main/java/sandbox/App.java  
+or with maven :  
+`$ mvn clean compile`  
+`$ mvn exec:java -Dexec.mainClass="sandbox.App"`  
+
+<<<<<<< HEAD
 execute src/main/java/sandbox/App.java  
 or with maven :  
 
