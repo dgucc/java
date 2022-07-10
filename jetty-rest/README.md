@@ -7,9 +7,13 @@
 + d3js
 
 
-## start jetty : 
+## start jetty :  
 
-src/main/java/sandbox/App.java  
+execute src/main/java/sandbox/App.java  
+or with maven :  
+`$ mvn clean compile`  
+`$ mvn exec:java -Dexec.mainClass="sandbox.App"`  
+
 
 
 > http://localhost:8080/rest/application.wadl  
