@@ -218,8 +218,7 @@ function chart(groupMembers){
 	                .duration(500)		
 	                .style("opacity", 0);	
 	        })
-	        .attr("startOffset", function(d){ return d.linkLabel=="LF A2"?"45%":"55%";}) // minimize overlapping text
-	        .attr("dy", function(d) { return d.linkLabel=='LF A2'? 5:-3; })
+	        .attr("startOffset", function(d){ return "50%";}) 
 	        .text(function (d) {return decodeURIComponent(escape(d.linkLabel));})
 	        ;
 	   
@@ -304,13 +303,8 @@ function chart(groupMembers){
 	        ry = bbox.y + bbox.height / 2;
 	        
 	        if (d.target.x < d.source.x) { // when target to the left of source
-	        	ry = d.linkLabel=='LF A2' ? ry-5 : ry+5;
 	            return 'rotate(180 ' + rx + ' ' + ry + ')';
-	        }        
-	        if (d.target.x > d.source.x) { // when target to the right of source
-	        	ry = d.linkLabel=='LF A2' ? 7 : -7;
-	            return "translate(" + 0 + "," + ry + ")";
-	        } 
+	        }      
 
 	    });
 	}

@@ -9,7 +9,11 @@
 
 ## start jetty : 
 
-src/main/java/sandbox/App.java  
+execute src/main/java/sandbox/App.java  
+or with maven :  
+
+`$ mvn clean compile`  
+`$ mvn exec:java -Dexec.mainClass="sandbox.App"`  
 
 
 > http://localhost:8080/rest/application.wadl  
@@ -20,6 +24,7 @@ http://localhost:8080/upload.html &rarr; POST mediaType="multipart/form-data" &r
 
 
 ---
+
 
 ## Bug fixes
 
