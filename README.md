@@ -33,3 +33,10 @@ public static void main(String[] args) {
 		...
 }
 ```  
+
+## Convert Charset
+```java
+final Charset fromCharset = Charset.forName("windows-1252");
+final Charset toCharset = Charset.forName("UTF-8");
+return new String(input.getBytes(fromCharset), toCharset);
+```  
