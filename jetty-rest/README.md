@@ -19,8 +19,10 @@ or with maven :
 > http://localhost:8080/rest/application.wadl  
 http://localhost:8080/rest/application.wadl?detail=true  
 http://localhost:8080/rest/test/hello/WORLD  
-d3js : upload csv  
-http://localhost:8080/upload.html &rarr; POST mediaType="multipart/form-data" &rarr; http://localhost:8080/upload/csv  
+
+>[d3js : upload csv](http://localhost:8080/upload.jsp) &rarr; POST mediaType="multipart/form-data"
+  
+>[generate qr code](http://localhost:8080/qrcode.jsp)
 
 
 ---
