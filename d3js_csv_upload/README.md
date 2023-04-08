@@ -1,14 +1,18 @@
 # Launch App
 `$ mvn compile exec:java -Dexec.mainClass=sandbox.App` 
 
-PWC6033: Error in Javac compilation for JSP
+---
+
+# Fixes
+
+## PWC6033: Error in Javac compilation for JSP
 PWC6199: Generated servlet error: source value 7 is obsolete and will be removed in a future release
 
-# Cause : mismatch java and jetty version
+## Cause : mismatch java and jetty version
 jetty 9.4.x		Java 8
 jetty 10.0.x 	Java 11+
 
-# switch default jre :
+## switch default jre :
 sudo apt-get install openjdk-8-jdk
 sudo update-alternatives --config java
 There are 2 choices for the alternative java (providing /usr/bin/java).
