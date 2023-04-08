@@ -1,4 +1,5 @@
-mvn compile exec:java -Dexec.mainClass=sandbox.App
+# Launch App
+`$ mvn compile exec:java -Dexec.mainClass=sandbox.App` 
 
 PWC6033: Error in Javac compilation for JSP
 PWC6199: Generated servlet error: source value 7 is obsolete and will be removed in a future release
