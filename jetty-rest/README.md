@@ -31,6 +31,10 @@ http://localhost:8080/rest/test/hello/WORLD
 >[generate qr code](http://localhost:8080/qrcode.jsp)
 
 
+8080 Already in use :  
+`$ lsof -i:8080`  
+`$ kill -9 <PID>`  
+
 ---
 
 

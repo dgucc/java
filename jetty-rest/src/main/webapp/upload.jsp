@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8"/>
+    <link href="./css/bootstrap-5.2.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="./css/style.css"></link>
     <script src="./js/d3.v5.min.js"></script>
     <script src="./js/jquery-latest.min.js"></script>
@@ -9,25 +10,23 @@
 <body>
 
 <h1>D3js Force Directed Graph</h1>
-<h2>Upload csv file</h2>
 
 <div id="tips">
 <span style="text-decoration: underline;">CSV :</span><br/>
 Expected fields in this order :</b><br/> 
-- <b>source</b><br/>
-- <b>sourceLabel</b><br/>
-- <b>target</b><br/>
-- <b>targetLabel</b><br/>
+- <b>source</b>,<b>sourceLabel</b><br/>
+- <b>target</b>,<b>targetLabel</b><br/>
 - <b>linkLabel</b><br/>
 </div>
 
 <div>
-<p>
- <form id="form" enctype="multipart/form-data">
-    <input name="file" id="file" type="file" accept=".csv" />&nbsp;<input type="button" id="btnUpload" value="Upload" />
+ <form id="form" enctype="multipart/form-data" class="form-control-sm" >
+    <span style="font-size:1.0em">Upload csv file : </span>&nbsp;
+    <input name="file" id="file" class="btn btn-outline-secondary" type="file" accept=".csv" />&nbsp;
+	<input type="button" id="btnUpload" value="Load" class="btn btn-primary"/>
 </form>
-</p>
 </div>
+
 <div id="chart" style="">
     <svg id="svg"></svg>
     <div id="legend"></div>
@@ -53,8 +52,8 @@ function upload(){
         success:function(response){
             data = [];
             Array.from(response.split("\n")).forEach(function(d,i){
-	            var col = d.split(",")
-	            if(col[0] != "source," && col[0] != "") { // skip headers and lines with no source
+	            let col = d.split(",")
+	            if(col[0] != "source" && col[0] != "") { // skip headers and lines with no source
 		            data.push({
 		                source:col[0]
 		                ,sourceLabel:col[1] != "" ? col[1].normalize('NFD').replace(/[\u0300-\u036f]/g, "") : ""
@@ -64,7 +63,7 @@ function upload(){
 		            });
 	            }
             })            
-//             console.log("csv : " + JSON.stringify(data));
+            console.log("csv : " + data);
             d3.select("#chart svg").selectAll('*').remove();
             chart(data);
         }
@@ -77,8 +76,8 @@ function chart(groupMembers){
 		d3.select("#chart").html("<span style='font-weight:bold; color:red;'>No data</span>");
 	}
 
-	var nodes = [];
-	var links = [];
+	let nodes = [];
+	let links = [];
 
 	// Populate nodes and links (remove duplicates)
 	Array.from(groupMembers).forEach(function (d){
@@ -99,12 +98,12 @@ function chart(groupMembers){
 
 	d3.select("#legend").html("<u>Infos :</u><br/>Nodes : <b>"+nodes.length+"</b><br/>Links : <b>"+links.length+"</b>");
 
-	var colors = d3.scaleOrdinal(d3.schemeSet3);
-	var width = window.innerWidth;
-	var height = window.innerHeight; 
-	var RADIUS = 38;
+	let colors = d3.scaleOrdinal(d3.schemeSet3);
+	let width = window.innerWidth;
+	let height = window.innerHeight; 
+	const RADIUS = 38;
 
-	var svg = d3.select("#chart svg")
+	let svg = d3.select("#chart svg")
 		.attr("width",width)
 		.attr("height",height)
 		// Pan & Zoom 
@@ -125,11 +124,11 @@ function chart(groupMembers){
 	    .append("g"); // Pan & Zoom trick...
 
 
-	var node;
-	var link;
+	let node;
+	let link;
 
 	// div for tooltip
-	var div = d3.select("body").append("div")	
+	let div = d3.select("body").append("div")	
 	   .attr("class", "tooltip")				
 	   .style("opacity", 0);
 
@@ -149,7 +148,7 @@ function chart(groupMembers){
 	    .attr('opacity', '0.9')
 	    .style('stroke','none');
 
-	var simulation = d3.forceSimulation()
+	let simulation = d3.forceSimulation()
 	    .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(100).strength(1))
 	    .force("charge", d3.forceManyBody().strength(-3000))
 	    .force("center", d3.forceCenter(width / 2, height / 2));
@@ -268,8 +267,9 @@ function chart(groupMembers){
 		    .attr("dy", +10)
 		    .attr("text-anchor", "middle")
 		    .attr("font-size", "9px")
+			.attr("color", "lightgreay")
 		    .text(function (d) {
-		    	var name = "";
+		    	let name = "";
 		    	if(d.label != undefined) { name=(d.label.length>11) ? decodeURIComponent(escape(d.label.slice(0,-1).substr(0,11)))+"..." : d.label.slice(0); } // slice to remove quotes 
 		    	return name;})
 		    ;
@@ -297,7 +297,7 @@ function chart(groupMembers){
 	    });
 
 	    edgelabels.attr('transform', function (d) {
-	        var bbox = this.getBBox();
+	        let bbox = this.getBBox();
 
 	        rx = bbox.x + bbox.width / 2;
 	        ry = bbox.y + bbox.height / 2;
@@ -325,7 +325,7 @@ function chart(groupMembers){
 	}
 
 	function arcPath(d) {
-	    var x1 = d.source.x,
+	    let x1 = d.source.x,
 	    y1 = d.source.y,
 	    x2 = d.target.x,
 	    y2 = d.target.y,
@@ -362,8 +362,8 @@ function chart(groupMembers){
 
 //handle window resizing
 function resize() {
-	var w = window.innerWidth;
-	var h = window.innerHeight;
+	let w = window.innerWidth;
+	let h = window.innerHeight;
 	d3.select('#chart svg').attr('width', w).attr('height', h);
 }
 window.onresize = resize;
