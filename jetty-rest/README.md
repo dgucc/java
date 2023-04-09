@@ -27,9 +27,12 @@ http://localhost:8080/rest/application.wadl?detail=true
 http://localhost:8080/rest/test/hello/WORLD  
 
 > [d3js : upload csv](http://localhost:8080/upload.jsp) &rarr; POST mediaType="multipart/form-data"
+
+<img src="images/d3js-preview.png" alt="Preview d3js graph" title="Preview d3js graph" style="width:70%">  
   
 >[generate qr code](http://localhost:8080/qrcode.jsp)
 
+<img src="images/wifi-qrcode.png" alt="QR Code example" title="QR Code example" style="width:250px">  
 
 8080 Already in use :  
 `$ lsof -i:8080`  
