@@ -1,0 +1,9 @@
+2023-04-08 19:57:45 INFO  log:170 - Logging initialized @5712ms to org.eclipse.jetty.util.log.Slf4jLog
+2023-04-08 19:57:45 INFO  Server:375 - jetty-9.4.43.v20210629; built: 2021-06-30T11:07:22.254Z; git: 526006ecfa3af7f1a27ef3a288e2bef7ea9dd7e8; jvm 1.8.0_362-8u362-ga-0ubuntu1~20.04.1-b09
+2023-04-08 19:57:46 INFO  AnnotationConfiguration:473 - Scanning elapsed time=124ms
+2023-04-08 19:57:46 INFO  session:334 - DefaultSessionIdManager workerName=node0
+2023-04-08 19:57:46 INFO  session:339 - No SessionScavenger set, using defaults
+2023-04-08 19:57:46 INFO  session:132 - node0 Scavenging every 600000ms
+2023-04-08 19:57:48 INFO  ContextHandler:915 - Started o.e.j.w.WebAppContext@37035df4{/,file:///home/user/workspace/github/java/d3js_csv_upload/src/main/webapp/,AVAILABLE}
+2023-04-08 19:57:48 INFO  AbstractConnector:331 - Started ServerConnector@5c2de571{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2023-04-08 19:57:48 INFO  Server:415 - Started @8157ms
