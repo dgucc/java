@@ -38,6 +38,12 @@ http://localhost:8080/rest/test/hello/WORLD
 `$ lsof -i:8080`  
 `$ kill -9 <PID>`  
 
+## json to csv : jq
+
+Extract selected fields + arithmetic on fields X and Y :   
+`$ jq -r '.[] | [.source, .sourceName, .target, .targetName, (.fieldX | tonumber)+(.fieldY | tonumber)] | @csv ' input.json > output.csv`  
+
+
 ---
 
 
