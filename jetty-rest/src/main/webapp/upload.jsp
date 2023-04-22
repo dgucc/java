@@ -62,9 +62,9 @@ function upload(){
 	            let cols = row.split(",")
 	            if(cols[0] != "source" && cols[0] != "") { // skip headers and lines with no source
 		            data.push({
-		                source:cols[0]
+		                source:JSON.parse(cols[0])
 		                ,sourceLabel:cols[1] != "" ? cols[1].normalize('NFD').replace(/[\u0300-\u036f]/g, "") : ""
-		                ,target:cols[2]
+		                ,target:JSON.parse(cols[2])
 		                ,targetLabel:cols[3] != "" ? cols[3].normalize('NFD').replace(/[\u0300-\u036f]/g, "") : ""
 		                ,linkLabel:cols[4] != "" ? cols[4].normalize('NFD').replace(/[\u0300-\u036f]/g, "") : ""
 		            });
