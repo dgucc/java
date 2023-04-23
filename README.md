@@ -66,6 +66,13 @@ END:VCARD
 Email  
 `mailto:contact@example.com?subject=Subject&body=Body`  
 
+---  
+
+## References 
+
+Found this (not yet tested)  
+[QR Code generator library](https://github.com/nayuki/QR-Code-generator)  
+
 
 
 
