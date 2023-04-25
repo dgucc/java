@@ -1,0 +1,24 @@
+
+
+https://github.com/dgucc/java.git
+
+.git/config :
+[user]
+	name = dgucc
+	email = djvu.guchz@gmail.com
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
+
+git remote add origin https://github.com/dgucc/java.git
+git branch -M main
+git push -u origin main
+
+
+# Local copy of remote repository
+git clone https://github.com/dgucc/java.git
+
+# Link a short name to the remote repo
+git remote add qrcode https://github.com/dgucc/java.git
+
+# Update local repo
+git pull origin main

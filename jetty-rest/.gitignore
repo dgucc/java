@@ -1,3 +1,25 @@
+<<<<<<< HEAD
 .project
 .settings
 target/
+=======
+# Backupfiles from mergetools #
+*.orig
+# Java Class Files #
+*.class
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+# Eclipse #
+/.project
+/.settings
+bin/**
+# Maven #
+target/
+/.mvn
+/.maven
+/.repository
+.flattened-pom.xml
+>>>>>>> f2f25fa45ccf07b2579467ac1b4b42e9116453f8
