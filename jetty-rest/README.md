@@ -9,13 +9,7 @@
 
 ## start jetty :  
 
-execute src/main/java/sandbox/App.java  
-or with maven :  
-`$ mvn clean compile`  
-`$ mvn exec:java -Dexec.mainClass="sandbox.App"`  
-
-
-execute src/main/java/sandbox/App.java  
+execute src/main/java/sandbox/App.java in eclipse 
 or with maven :  
 
 `$ mvn clean compile`  
@@ -44,7 +38,7 @@ Extract selected fields + arithmetic on fields X and Y :
 `$ jq -r '.[] | [.source, .sourceName, .target, .targetName, (.fieldX | tonumber)+(.fieldY | tonumber)] | @csv ' input.json > output.csv`  
 
 
-## Source of data examples
+## Sources of data samples
 [Panama Papers Dataset 2016](https://github.com/amaboura/panama-papers-dataset-2016)  
 
 ---
