@@ -44,6 +44,9 @@ Extract selected fields + arithmetic on fields X and Y :
 `$ jq -r '.[] | [.source, .sourceName, .target, .targetName, (.fieldX | tonumber)+(.fieldY | tonumber)] | @csv ' input.json > output.csv`  
 
 
+## Source of data examples
+[Panama Papers Dataset 2016](https://github.com/amaboura/panama-papers-dataset-2016)  
+
 ---
 
 
