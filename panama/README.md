@@ -1,42 +1,34 @@
 
-# Jetty-rest-debug
+# PANAMA PAPERS 2016
+
 + embedded jetty 
 + jsp support
-+ jersey 
++ jersey for service rest
 + multipart support 
 + d3js
 
 
 ## start jetty :  
 
-execute src/main/java/sandbox/App.java  
-or with maven :  
-`$ mvn clean compile`  
-`$ mvn exec:java -Dexec.mainClass="sandbox.App"`  
-
-
-execute src/main/java/sandbox/App.java  
+execute src/main/java/sandbox/App.java in eclipse 
 or with maven :  
 
 `$ mvn clean compile`  
 `$ mvn exec:java -Dexec.mainClass="sandbox.App"`  
+
+8080 Already in use :  
+`$ lsof -i:8080`  
+`$ kill -9 <PID>`  
 
 
 > http://localhost:8080/rest/application.wadl  
 http://localhost:8080/rest/application.wadl?detail=true  
 http://localhost:8080/rest/test/hello/WORLD  
 
-> [d3js : upload csv](http://localhost:8080/upload.jsp) &rarr; POST mediaType="multipart/form-data"
+> [d3js : upload csv](http://localhost:8080/upload-csv.jsp) &rarr; POST mediaType="multipart/form-data"
 
 <img src="images/d3js-preview.png" alt="Preview d3js graph" title="Preview d3js graph" style="width:70%">  
   
->[generate qr code](http://localhost:8080/qrcode.jsp)
-
-<img src="images/wifi-qrcode.png" alt="QR Code example" title="QR Code example" style="width:250px">  
-
-8080 Already in use :  
-`$ lsof -i:8080`  
-`$ kill -9 <PID>`  
 
 ## json to csv : jq
 
@@ -44,13 +36,13 @@ Extract selected fields + arithmetic on fields X and Y :
 `$ jq -r '.[] | [.source, .sourceName, .target, .targetName, (.fieldX | tonumber)+(.fieldY | tonumber)] | @csv ' input.json > output.csv`  
 
 
-## Source of data examples
+## Sources of data samples
 [Panama Papers Dataset 2016](https://github.com/amaboura/panama-papers-dataset-2016)  
 
 ---
 
 
-## Bug fixes
+## Fixes
 
 ### 1. HTTP ERROR 500 - PWC6033: Unable to compile class for JSP
 

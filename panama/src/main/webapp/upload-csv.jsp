@@ -1,11 +1,14 @@
 <%@page contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8"/>
     <link href="./css/bootstrap-5.2.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	 <link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="./css/style.css"></link>
     <script src="./js/d3.v5.min.js"></script>
     <script src="./js/jquery-latest.min.js"></script>
+	 <script src="./js/FileSaver.min.js"></script>
 	 <title>D3js Force Directed Graph</title>
 </head>
 <body>
@@ -30,7 +33,16 @@ Ensure using Unix line endings : <b>"\n"</b>...
 	</form>
 	</div>
 	<div>
-		<input type="button" id="btnUpload" value="Load Graph" class="btn btn-primary upload-btn"/>
+		<button id="btnUpload" class="btn btn-primary upload-btn">
+			<i class="fa fa-upload" aria-hidden="true"></i>
+			<span>Load Graph</span>
+		</button>
+	</div>
+	<div style="padding:5px;">		
+		<button id="btnExport" class="btn btn-secondary">
+		<i class="fa fa-download" aria-hidden="true"></i>
+		<span>Export as SVG</span>
+		</button>
 	</div>
 </div>
 
@@ -150,10 +162,10 @@ function chart(groupMembers){
 		.attr('markerHeight',13)
 		.attr('xoverflow','visible')
 		.append('svg:path')
-	    .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-	    .attr('fill', 'grey')
-	    .attr('opacity', '0.9')
-	    .style('stroke','none');
+		.attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+		.attr('fill', 'grey')
+		.attr('opacity', '0.9')
+		.style('stroke','none');
 
 	let simulation = d3.forceSimulation()
 	    .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(100).strength(1))
@@ -375,6 +387,22 @@ function resize() {
 }
 window.onresize = resize;
 
+// Export svg
+function saveAsSvg(){
+    let svg_data = document.getElementById("svg").innerHTML;
+    let head = '<svg title="graph" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">';
+    let style = '<style>circle {cursor: pointer;stroke: lightgrey;stroke-width: 1.5px;}text {font-family: sans-serif; fill: black;}path {stroke: #999;stroke-width: 1px;opacity:0.7}</style>';
+    let full_svg = head +  style + svg_data + "</svg>";
+    let blob = new Blob([full_svg], {type: "image/svg+xml;charset=utf-8"});  
+    saveAs(blob, "graph-export.svg");
+};
+
+//Set-up the export button
+d3.select('#btnExport').on('click', function(){
+	console.log("export click...");
+	d3.select('#svg').attr('width', window.innerWidth).attr('height', window.innerHeight);
+	saveAsSvg();
+});
 </script>
 </body>
 </html>
