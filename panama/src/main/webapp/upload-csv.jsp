@@ -33,10 +33,13 @@
 				<span>Export as SVG</span>
 			</button>
 		</div>
+		<div style="padding:5px;">
+			<input id="identifier" class="btn btn-outline-secondary" type="text" value="389454"/>
+		</div>
 		<div style="padding:5px;">		
-			<button id="btnLocate" class="btn btn-secondary">
-				<i class="fa fa-download" aria-hidden="true"></i>
-				<span>Export as SVG</span>
+			<button id="btnLocate" class="btn btn-secondary" onclick="zoomInNode($('#identifier').val());">
+				<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+				<span>Locate</span>
 			</button>
 		</div>
 	</div>
@@ -85,14 +88,16 @@ $(document).ready(function() {
     });
 });
 
-function zoomInNode(cbe){
+
+// Locate and Zoom to Node
+function zoomInNode(searchId){
 	let zoom = d3.zoom()
-	// extra caution (really necessary ?)
+	// Extra caution (really necessary ?)
 	.on('zoom', function(){
 		zoom.filter(() => {
 			if (d3.event.type === 'wheel') {
-			  // don't allow zooming without pressing [ctrl] key
-			  return d3.event.ctrlKey;
+			// don't allow zooming without pressing [ctrl] key
+			return d3.event.ctrlKey;
 			}			
 			return true;
 		})
@@ -118,29 +123,31 @@ function zoomInNode(cbe){
 	let result=[]=d3.selectAll(".node")
 		.data()
 		.filter(function(d) { 
-			return d.bce==cbe;
+			return d.id == searchId;
 		});
-	if (result != undefined) {
+	
+	console.log(searchId + " : " + result[0].label);
+
+	if (result !== undefined) {
 		d3.select('#svg').call(zoom);
 		svg.transition().duration(2000).call(
 			zoom.transform,
 			d3.zoomIdentity.translate(window.innerWidth/2, window.innerHeight/2).scale(1.25).translate(-result[0].x, -result[0].y)			
 		);
 		let RADIUS = 38;
-		d3.selectAll(".node").filter((d) => d.bce==cbe).select("circle").transition()
-		    .duration(2500)
-		    .attr("r", RADIUS*1.5)
-		    .transition()
-		    .duration(750)
-		    .attr("r", RADIUS)
-	    ;
+		d3.selectAll(".node").filter((d) => d.id==searchId).select("circle").transition()
+			.duration(2500)
+			.attr("r", RADIUS*1.5)
+			.transition()
+			.duration(750)
+			.attr("r", RADIUS)
+		;
 	};
 
 	svg.dispatch('click');
 
 	return 0;
 }
-
 
 function upload(){
     $.ajax({
@@ -474,27 +481,7 @@ function chart(groupMembers){
 		return "M" + x1 + "," + y1 + "A" + drx + "," + dry + " " + xRotation + "," + largeArc + "," + sweep + " " + x2 + "," + y2;
 	}
 
-	function printLinksSummary(cbe) {	    	
-    	let node = nodes.filter((d) => d.bce==cbe)[0];
-		let html="<div style='font-size:xx-smaller;'>";
-		html = html + "<span style='float:right;cursor:pointer;' onclick='d3.select(\"#summary\").style(\"display\",\"none\")'>Close <b>[X]</b></span>";
-		html = html + "<div style='clear:right;'><strong>Summary :</strong></div><br/>";
-		html = html + "<p>" + node.bce + "<b>" + (node.name != "" ? " - "+node.name : " ")+ "</b>" + " [" + (node.country!="" ? node.country : "?") + "]</p>";
-		html = html + "Parents :<ol style='margin:2px'>";		
-		links.filter((d) => d.target.bce==cbe).sort((a,b) => a.source.bce-b.source.bce).forEach(function(d) {
-		// parents list
-			html = html + "<li>" + d.source.bce + " <b>" + (d.parentName.length>11 ? d.parentName.substr(0,11)+"..." : d.parentName) + "</b> " + d.percentage + "</li>";
-		});
-		html = html + "</ol>";
-		// children list
-		html = html + "Children :<ol style='margin:2px'>";
-		links.filter((d) => d.source.bce==cbe).sort((a,b) => a.target.bce-b.target.bce).forEach(function(d) {
-			html = html + "<li>" + d.target.bce + " <b>" + (d.childName.length>11 ? d.childName .substr(0,11)+"..." : d.childName) + "</b> " + d.percentage + "</li>";
-		});				
-		html = html + "</ol>";
-		html = html + "</div>";
-		return html;
-	}
+
 }
 
 // Reset svg
