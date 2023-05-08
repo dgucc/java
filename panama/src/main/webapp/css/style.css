@@ -10,6 +10,36 @@ h2 {
 	font-size:1.0em;
 	font-weight: bolder;
 }
+/* horizontal sub menu "chart" "table" */
+#tabGraph, #tabTable, section {
+	clear: both;
+	padding-top: 7px;
+	display: none;
+}
+#tabGraph:checked ~ #sectionGraph, #tabTable:checked ~ #sectionTable {
+	display: block;
+}
+
+#tabTable {
+	background-color:ghostwhite;
+}
+input:checked + label {
+	border-top-color: transparent;
+	border-bottom-color: steelblue;
+	text-decoration: none;
+}
+#searchBtn {
+	color:white;
+	background-color: #007ad9;
+	border: 1px solid grey;
+}
+input:checked + label {
+	border-top-color: transparent;
+	border-bottom-color: steelblue;
+	text-decoration: none;
+}
+/* End - horizontal menue */
+
 label {
 	font-weight: bold;
 	font-size: 12px;

@@ -13,44 +13,69 @@
 </head>
 <body>
 
-<!-- 
-<div id="tips">
-<span style="text-decoration: underline;">
-	CSV - Expected fields in this order :
-</span>
-	<li>
-		<b>source</b>,sourceLabel,<b>target</b>,targetLabel,linkLabel
-	</li>
-Ensure using Unix line endings : <b>"\n"</b>...
-</div> 
--->
-
-<div style="display:flex;align-items:center;">
-	<div class="upload-container">
-	 <form id="form" enctype="multipart/form-data" class="form-control-sm" >
-		<span style="font-size:1.1em;font-weight: bold;">Upload csv file : </span>&nbsp;
-		<input name="file" id="file" class="btn btn-outline-secondary" type="file" accept=".csv" multiple="false" />&nbsp;
-	</form>
-	</div>
-	<div>
-		<button id="btnUpload" class="btn btn-primary upload-btn">
-			<i class="fa fa-upload" aria-hidden="true"></i>
-			<span>Load Graph</span>
-		</button>
-	</div>
-	<div style="padding:5px;">		
-		<button id="btnExport" class="btn btn-secondary">
-		<i class="fa fa-download" aria-hidden="true"></i>
-		<span>Export as SVG</span>
-		</button>
+<div id="outer-form" >
+	<div style="display:flex;align-items:center;">
+		<div class="upload-container">
+			<form id="form" enctype="multipart/form-data" class="form-control-sm" >
+				<span style="font-size:1.1em;font-weight: bold;">Upload csv file : </span>&nbsp;
+				<input name="file" id="file" class="btn btn-outline-secondary" type="file" accept=".csv" multiple="false" />&nbsp;
+			</form>
+		</div>
+		<div>
+			<button id="btnUpload" class="btn btn-primary upload-btn">
+				<i class="fa fa-upload" aria-hidden="true"></i>
+				<span>Load</span>
+			</button>
+		</div>
+		<div style="padding:5px;">		
+			<button id="btnExport" class="btn btn-secondary">
+				<i class="fa fa-download" aria-hidden="true"></i>
+				<span>Export as SVG</span>
+			</button>
+		</div>
+		<div style="padding:5px;">		
+			<button id="btnLocate" class="btn btn-secondary">
+				<i class="fa fa-download" aria-hidden="true"></i>
+				<span>Export as SVG</span>
+			</button>
+		</div>
 	</div>
 </div>
 
-<div id="chart" style="">
-    <svg id="svg"></svg>
-    <div id="legend"></div>
+<div id="chart" style="margin-top:5px">
+	<main>
+		<input id="tabGraph" type="radio" name="tabs" checked />
+		<label for="tabGraph" >Graph</label>
+		<input id="tabTable" type="radio" name="tabs" />
+		<label for="tabTable">Table</label>
+				
+
+	<section id="sectionGraph">
+		<svg id="svg"></svg>
+	</section>
+	<section id="sectionTable">
+		<div id="json2table" class="container mt-5" style="display:block;">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+				<th>Source</th>
+				<th>Name</th>
+				<th>Target</th>
+				<th>Name</th>
+				<th>Link</th>
+				</tr>
+			</thead>
+			<tbody id="tbody-id">			
+			</tbody>
+		</table>
+		</div>			
+	</section>
+	</main>
+	<div id="legend"></div>
 </div>
 
+<div id="tooltip" style="display:none;"></div>
+<div id="summary" style="display:none;"></div>
 
 <script type="text/javascript">
 
@@ -59,6 +84,62 @@ $(document).ready(function() {
         upload();
     });
 });
+
+function zoomInNode(cbe){
+	let zoom = d3.zoom()
+	// extra caution (really necessary ?)
+	.on('zoom', function(){
+		zoom.filter(() => {
+			if (d3.event.type === 'wheel') {
+			  // don't allow zooming without pressing [ctrl] key
+			  return d3.event.ctrlKey;
+			}			
+			return true;
+		})
+		// ensure "g" within "svg" dispatch events
+		let g = d3.select('#svg g');
+		g.attr("transform", d3.event.transform)
+		g.attr("translate", d3.event.translate)
+		g.attr("scale", d3.event.scale)
+		g.on("dblclick.zoom", null)
+		;
+		// disallow dblclick.zoom and click.zoom in svg
+		let svg = d3.select('#svg')
+		.on("dblclick.zoom", null)
+		.on("click.zoom", null)
+		;		
+	})
+	;
+	// switch to tabGraph
+	let tab = document.getElementById('tabGraph');
+	tab.checked = true;	
+	let svg = d3.select('#svg');
+	// locate and zoom to Node
+	let result=[]=d3.selectAll(".node")
+		.data()
+		.filter(function(d) { 
+			return d.bce==cbe;
+		});
+	if (result != undefined) {
+		d3.select('#svg').call(zoom);
+		svg.transition().duration(2000).call(
+			zoom.transform,
+			d3.zoomIdentity.translate(window.innerWidth/2, window.innerHeight/2).scale(1.25).translate(-result[0].x, -result[0].y)			
+		);
+		let RADIUS = 38;
+		d3.selectAll(".node").filter((d) => d.bce==cbe).select("circle").transition()
+		    .duration(2500)
+		    .attr("r", RADIUS*1.5)
+		    .transition()
+		    .duration(750)
+		    .attr("r", RADIUS)
+	    ;
+	};
+
+	svg.dispatch('click');
+
+	return 0;
+}
 
 
 function upload(){
@@ -82,11 +163,27 @@ function upload(){
 		            });
 	            }
             })            
-            console.log("csv : " + data);
+            // console.log("csv : " + data);
             d3.select("#chart svg").selectAll('*').remove();
+			populateTable("#tbody-id",data);
             chart(data);
         }
     });
+}
+
+function populateTable(tbody,data){
+	if(typeof(data[0]) === 'undefined'){ return null;}
+
+	$.each(data, function(index, row ) {
+		let tr = '<tr>';
+		$.each(row, function(index, colData ) {
+			tr += '<td>';
+			tr += colData;
+			tr += '</td>';
+		});
+		tr += '</tr>';
+		$(tbody).append(tr);
+	})
 }
 
 function chart(groupMembers){
@@ -376,8 +473,39 @@ function chart(groupMembers){
 
 		return "M" + x1 + "," + y1 + "A" + drx + "," + dry + " " + xRotation + "," + largeArc + "," + sweep + " " + x2 + "," + y2;
 	}
+
+	function printLinksSummary(cbe) {	    	
+    	let node = nodes.filter((d) => d.bce==cbe)[0];
+		let html="<div style='font-size:xx-smaller;'>";
+		html = html + "<span style='float:right;cursor:pointer;' onclick='d3.select(\"#summary\").style(\"display\",\"none\")'>Close <b>[X]</b></span>";
+		html = html + "<div style='clear:right;'><strong>Summary :</strong></div><br/>";
+		html = html + "<p>" + node.bce + "<b>" + (node.name != "" ? " - "+node.name : " ")+ "</b>" + " [" + (node.country!="" ? node.country : "?") + "]</p>";
+		html = html + "Parents :<ol style='margin:2px'>";		
+		links.filter((d) => d.target.bce==cbe).sort((a,b) => a.source.bce-b.source.bce).forEach(function(d) {
+		// parents list
+			html = html + "<li>" + d.source.bce + " <b>" + (d.parentName.length>11 ? d.parentName.substr(0,11)+"..." : d.parentName) + "</b> " + d.percentage + "</li>";
+		});
+		html = html + "</ol>";
+		// children list
+		html = html + "Children :<ol style='margin:2px'>";
+		links.filter((d) => d.source.bce==cbe).sort((a,b) => a.target.bce-b.target.bce).forEach(function(d) {
+			html = html + "<li>" + d.target.bce + " <b>" + (d.childName.length>11 ? d.childName .substr(0,11)+"..." : d.childName) + "</b> " + d.percentage + "</li>";
+		});				
+		html = html + "</ol>";
+		html = html + "</div>";
+		return html;
+	}
 }
 
+// Reset svg
+function resetSvg() {
+	// reset any error message
+	d3.select("#errorMsg").style("display","none").html("");
+	// reset summary
+	d3.select("#summary").style("display","none").html("");
+	// remove all pre-existing elements in svg 
+	d3.select("#svg").selectAll("*").remove();
+}
 
 //handle window resizing
 function resize() {
