@@ -34,7 +34,7 @@
 			</button>
 		</div>
 		<div style="padding:5px;">
-			<input id="identifier" class="btn btn-outline-secondary" type="text" value="389454"/>
+			<input id="identifier" class="btn btn-outline-secondary" type="text" value=""/>
 		</div>
 		<div style="padding:5px;">		
 			<button id="btnLocate" class="btn btn-secondary" onclick="zoomInNode($('#identifier').val());">
@@ -84,6 +84,7 @@
 
 $(document).ready(function() {
     $('#btnUpload').on('click', function () {
+		resetSvg();
         upload();
     });
 });
@@ -91,6 +92,8 @@ $(document).ready(function() {
 
 // Locate and Zoom to Node
 function zoomInNode(searchId){
+	if(searchId == undefined){ return null;}
+	
 	let zoom = d3.zoom()
 	// Extra caution (really necessary ?)
 	.on('zoom', function(){
@@ -184,9 +187,15 @@ function populateTable(tbody,data){
 	$.each(data, function(index, row ) {
 		let tr = '<tr>';
 		$.each(row, function(index, colData ) {
-			tr += '<td>';
-			tr += colData;
-			tr += '</td>';
+			if(index=='source' || index=='target'){
+				tr += '<td style="cursor:pointer" onclick="zoomInNode(' + colData + ')">';
+				tr += '<span style="color:steelblue;">' + colData + '</span>';
+				tr += '</td>';
+			}else{
+				tr +='<td>';
+				tr += colData;
+				tr +='</td>'
+			}
 		});
 		tr += '</tr>';
 		$(tbody).append(tr);
@@ -492,6 +501,8 @@ function resetSvg() {
 	d3.select("#summary").style("display","none").html("");
 	// remove all pre-existing elements in svg 
 	d3.select("#svg").selectAll("*").remove();
+	// empty table
+	d3.select("#tbody-id").selectAll("tr").remove();
 }
 
 //handle window resizing
