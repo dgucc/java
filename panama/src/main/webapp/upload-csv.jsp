@@ -54,7 +54,7 @@
 		<svg id="svg"></svg>
 	</section>
 	<section id="sectionTable">
-		<div id="json2table" class="container mt-5" style="display:block;">
+		<div id="json2table" class="container mt-5" style="display:block;background-color: seashell;border-radius: 15px;">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -71,7 +71,7 @@
 		</div>			
 	</section>
 	</main>
-	<div id="legend"></div>
+	<div id="legend" style="border-radius: 10px;"></div>
 </div>
 
 <div id="tooltip" style="display:none;"></div>
