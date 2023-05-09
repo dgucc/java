@@ -91,9 +91,10 @@ $(document).ready(function() {
 
 
 // Locate and Zoom to Node
-function zoomInNode(searchId){
-	if(searchId == undefined){ return null;}
+function zoomInNode(targetId){
+	if(targetId == undefined){ return null;}
 	
+	console.log("targetId : "+ targetId);
 	let zoom = d3.zoom()
 	// Extra caution (really necessary ?)
 	.on('zoom', function(){
@@ -126,19 +127,19 @@ function zoomInNode(searchId){
 	let result=[]=d3.selectAll(".node")
 		.data()
 		.filter(function(d) { 
-			return d.id == searchId;
+			return d.id == targetId;
 		});
-	
-	console.log(searchId + " : " + result[0].label);
 
-	if (result !== undefined) {
+	console.log("result.length : " + result.length);
+
+	if (result.length > 0) {
 		d3.select('#svg').call(zoom);
 		svg.transition().duration(2000).call(
 			zoom.transform,
 			d3.zoomIdentity.translate(window.innerWidth/2, window.innerHeight/2).scale(1.25).translate(-result[0].x, -result[0].y)			
 		);
 		let RADIUS = 38;
-		d3.selectAll(".node").filter((d) => d.id==searchId).select("circle").transition()
+		d3.selectAll(".node").filter((d) => d.id==targetId).select("circle").transition()
 			.duration(2500)
 			.attr("r", RADIUS*1.5)
 			.transition()
@@ -188,7 +189,7 @@ function populateTable(tbody,data){
 		let tr = '<tr>';
 		$.each(row, function(index, colData ) {
 			if(index=='source' || index=='target'){
-				tr += '<td style="cursor:pointer" onclick="zoomInNode(' + colData + ')">';
+				tr += '<td style="cursor:pointer" onclick="zoomInNode(' + parseInt(colData) + ')">';
 				tr += '<span style="color:steelblue;">' + colData + '</span>';
 				tr += '</td>';
 			}else{
@@ -206,6 +207,7 @@ function chart(groupMembers){
 
 	if(groupMembers.length < 1 ){
 		d3.select("#chart").html("<span style='font-weight:bold; color:red;'>No data</span>");
+		return null;
 	}
 
 	let nodes = [];
@@ -290,6 +292,7 @@ function chart(groupMembers){
 
 	function update(links, nodes) {
 		
+		// LINK
 	    link = svg.selectAll(".link")
 	        .data(links)
 	        .enter()
@@ -352,7 +355,8 @@ function chart(groupMembers){
 	        .attr("startOffset", function(d){ return "50%";}) 
 	        .text(function (d) {return decodeURIComponent(escape(d.linkLabel));})
 	        ;
-	   
+		
+		// NODE
 	    node = svg.selectAll(".node")
 	        .data(nodes)
 	        .enter()
@@ -373,13 +377,21 @@ function chart(groupMembers){
 	            		)            	 
 	                .style("left", (d3.event.pageX + 25) + "px")		
 	                .style("top", (d3.event.pageY - 30) + "px");
-	            })					
+	            })
+			// on mouse-out
 	        .on("mouseout", function(d) {		
 	            div.transition()		
 	                .duration(500)		
 	                .style("opacity", 0);	
 	        })
-
+			// on right-click
+	    	.on("contextmenu", function (d) {
+	            d3.event.preventDefault();	            
+	            d3.select("#summary").style("display","").html(printLinksSummary(d.id));
+	        })
+	        ;
+		
+		// CIRCLE
 	    node.append("circle")
 	        .attr("r", RADIUS)
 			.style("fill", function(d,i){ return colors(i);})
@@ -490,6 +502,27 @@ function chart(groupMembers){
 		return "M" + x1 + "," + y1 + "A" + drx + "," + dry + " " + xRotation + "," + largeArc + "," + sweep + " " + x2 + "," + y2;
 	}
 
+	function printLinksSummary(identifier) {	    	
+    	let node = nodes.filter((d) => d.id==identifier)[0];
+		let html="<div style='font-size:xx-smaller;clear: bottom;'>";
+		html = html + "<span style='float:right;cursor:pointer;' onclick='d3.select(\"#summary\").style(\"display\",\"none\")'>Close <b>[X]</b></span>";
+		html = html + "<div style='clear:right;'><strong>Summary :</strong></div><br/>";
+		html = html + "<p>" + node.id + "<b>" + (node.label != "" ? " - "+node.label : " ")+ "</b></p>";
+		html = html + "Parents :<ol style='margin:2px'>";		
+		links.filter((d) => d.target.id==identifier).sort((a,b) => a.source.id-b.source.id).forEach(function(d) {
+		// parents list
+			html = html + "<li>" + d.source.id + " <b>" + d.sourceLabel + "</b> </li>";
+		});
+		html = html + "</ol>";
+		// children list
+		html = html + "Children :<ol style='margin:2px'>";
+		links.filter((d) => d.source.id==identifier).sort((a,b) => a.target.id-b.target.id).forEach(function(d) {
+			html = html + "<li>" + d.target.id + " <b>" + d.targetLabel + "</b> </li>";
+		});				
+		html = html + "</ol>";
+		html = html + "</div>";
+		return html;
+	}
 
 }
 
