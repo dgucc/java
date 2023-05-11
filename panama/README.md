@@ -38,6 +38,7 @@ Extract selected fields + arithmetic on fields X and Y :
 
 ## Sources of data samples
 [Panama Papers Dataset 2016](https://github.com/amaboura/panama-papers-dataset-2016)  
+https://github.com/amaboura/panama-papers-dataset-2016/blob/master/csv-viz-data/All-edges.csv  
 
 ## Font awesome 4.7.0
 [The set of icons in Font Awesome 4.7.0](https://fontawesome.com/v4/icons/)
