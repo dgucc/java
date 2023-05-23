@@ -1,5 +1,7 @@
 # java
 
+![Avatar](https://github.com/dgucc/sandbox/blob/main/tips/images/avatar.gif)  
+
 ## Wi-Fi QR-Code
 
 Sample to generate QRCode for WiFi  
