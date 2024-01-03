@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 .project
 .settings
-target/
-=======
 # Backupfiles from mergetools #
 *.orig
 # Java Class Files #
@@ -22,9 +19,5 @@ target/
 /.maven
 /.repository
 .flattened-pom.xml
-<<<<<<< HEAD
->>>>>>> f2f25fa45ccf07b2579467ac1b4b42e9116453f8
-=======
 # log4j
 log4j.log
->>>>>>> @{u}

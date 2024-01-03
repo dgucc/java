@@ -75,6 +75,59 @@ Email
 Found this (not yet tested)  
 [QR Code generator library](https://github.com/nayuki/QR-Code-generator)  
 
+---
 
+## Mismatching Java version and Maven Dependency
 
+To identify "Mismatching Java version and Maven Dependency" use ["maven-enforcer-plugin" and "extra-enforcer-rule"](https://stackoverflow.com/questions/26559830/required-java-version-of-maven-dependency/26565660#26565660)  
+
+Add this lines in the [pom.xml](https://www.mojohaus.org/extra-enforcer-rules/enforceBytecodeVersion.html)   
+
+```xml
+<build>
+<plugins>
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-enforcer-plugin</artifactId>
+		<version>3.3.0</version> 
+		<!-- find the latest version at http://maven.apache.org/plugins/maven-enforcer-plugin/ -->
+		<executions>
+			<execution>
+				<id>enforce-bytecode-version</id>
+				<goals>
+					<goal>enforce</goal>
+				</goals>
+				<configuration>
+					<rules>
+						<enforceBytecodeVersion>
+							<maxJdkVersion>1.8</maxJdkVersion>
+							<excludes>
+								<exclude>org.mindrot:jbcrypt</exclude>
+							</excludes>
+						</enforceBytecodeVersion>
+					</rules>
+					<fail>true</fail>
+				</configuration>
+			</execution>
+		</executions>
+		<dependencies>
+			<dependency>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>extra-enforcer-rules</artifactId>
+				<version>1.7.0</version>
+			</dependency>
+		</dependencies>
+		</plugin>
+	</plugins>
+</build>
+```
+	Identify problematic dependency 
+ 
+`$ mvn clean compile`  
+
+> [ERROR] Rule 0: org.codehaus.mojo.extraenforcer.dependencies.EnforceBytecodeVersion failed with message:
+> [ERROR] Found Banned Dependency: org.hsqldb:hsqldb:jar:2.6.0
+> [ERROR] Use 'mvn dependency:tree' to locate the source of the banned dependencies.
+
+---
 
