@@ -10,6 +10,7 @@
 
 src/main/java/sandbox/App.java  
 
+`$ mvn exec:java -Dexec.mainClass="sandbox.App"`
 
 > http://localhost:8080/rest/application.wadl  
 http://localhost:8080/rest/application.wadl?detail=true  
