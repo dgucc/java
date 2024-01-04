@@ -20,4 +20,4 @@ target/
 /.repository
 .flattened-pom.xml
 # log4j
-log4j.log
+**/log4j.log
