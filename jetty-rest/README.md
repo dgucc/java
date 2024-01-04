@@ -1,4 +1,3 @@
-
 # Jetty-rest-debug
 + embedded jetty 
 + jsp support
@@ -7,7 +6,7 @@
 + d3js
 
 
-## start jetty :  
+## start jetty : 
 
 execute src/main/java/sandbox/App.java in eclipse 
 or with maven :  

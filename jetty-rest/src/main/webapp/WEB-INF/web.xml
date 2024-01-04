@@ -35,5 +35,4 @@
 		<url-pattern>*.XSP</url-pattern>
 	</servlet-mapping>
 
-
 </web-app>
