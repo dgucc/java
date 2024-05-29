@@ -1,6 +1,7 @@
 
 # PANAMA PAPERS 2016
 
+Java 8  
 + embedded jetty 
 + jsp support
 + jersey for service rest
