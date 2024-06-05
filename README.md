@@ -2,6 +2,24 @@
 
 ![Avatar](https://github.com/dgucc/sandbox/blob/main/tips/images/avatar.gif)  
 
+---
+
+## Install IntelliJ Community Edition
+
+[Reference](https://samtinkers.wordpress.com/2020/08/31/install-intellij-in-linux-mint-20/)  
+[Download Community Edition](https://download.jetbrains.com/idea/ideaIC-2024.1.2-aarch64.tar.gz)  
+
+```bash  
+cd /home/user/Downloads/
+tar xvf ideaIC-2024.1.2.tar.gz
+sudo mv idea-IC-241.17011.79 /opt/idea
+```  
+Launch IntelliJ: `/opt/idea/bin/idea.sh`  
+
+Create launcher : Menu Tools > "Create Desktop Entry"  
+
+---
+
 ## Wi-Fi QR-Code
 
 Sample to generate QRCode for WiFi  
