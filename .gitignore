@@ -17,3 +17,5 @@ target/
 /.maven
 /.repository
 .flattened-pom.xml
+jetty-rest/.classpath
+jetty-rest/log/log4j.log
