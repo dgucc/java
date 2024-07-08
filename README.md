@@ -341,4 +341,9 @@ D:\tools\DEV\SERVER\apache-tomcat-7.0.70\bin\startup.bat :
 	SET JRE_HOME=C:\Program Files\Java\jdk1.7.0_80\jre
 ```
 
+## Hibernate Tools Maven Plugin
+
+[github](https://github.com/hibernate/hibernate-tools/blob/main/maven/README.md)  
+hbm2ddl  
+hbm2java  
 
