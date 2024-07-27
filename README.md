@@ -30,6 +30,10 @@ Check the default version:
 
 ---
 
+[maven simple example](https://github.com/dgucc/java/tree/main/my-app)  
+
+---
+
 ## Install IntelliJ Community Edition
 
 [Reference](https://samtinkers.wordpress.com/2020/08/31/install-intellij-in-linux-mint-20/)  
