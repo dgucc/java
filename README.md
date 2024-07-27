@@ -16,7 +16,7 @@ $ apt-cache search openjdk
 To install the default OpenJDK :    
 `$ sudo apt install default-jdk` 
 
-Or select a specific version by passing the version number to the package name :    
+Or select a specific version :    
 `$ sudo apt install openjdk-17-jdk` 
 
 List of Java versions installed :   
