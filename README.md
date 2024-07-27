@@ -26,7 +26,7 @@ Set the default version :
 `$ sudo update-alternatives --config java`  
 
 Check the default version:  
-$ java --version
+`$ java --version` 
 
 ---
 
