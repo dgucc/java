@@ -4,6 +4,32 @@
 
 ---
 
+## Install OpenJDK on Linux Mint
+
+[Install OpenJDK on Linux Mint 21](https://techviewleo.com/install-java-openjdk-on-linux-mint/)  
+
+List all available versions of OpenJDK on Linux Mint.  
+```bash  
+$ sudo apt update
+$ apt-cache search openjdk
+```
+To install the default OpenJDK :    
+`$ sudo apt install default-jdk` 
+
+Or select a specific version by passing the version number to the package name :    
+`$ sudo apt install openjdk-17-jdk` 
+
+List of Java versions installed :   
+`$ sudo update-java-alternatives --list` 
+
+Set the default version :   
+`$ sudo update-alternatives --config java`  
+
+Check the default version:  
+$ java --version
+
+---
+
 ## Install IntelliJ Community Edition
 
 [Reference](https://samtinkers.wordpress.com/2020/08/31/install-intellij-in-linux-mint-20/)  
