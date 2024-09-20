@@ -83,6 +83,36 @@ public static void main(String[] args) {
 		...
 }
 ```  
+## Script to run maven for a specific jdk  
+mvn8.cmd :  
+```cmd
+@echo off
+@REM Remember to add PATH to this file...
+
+echo "       ____.                       ______    "
+echo "      |    |____ ___  _______     /  __  \   "
+echo "      |    \__  \\  \/ /\__  \    >      <   "
+echo "  /\__|    |/ __ \\   /  / __ \_ /   --   \  "
+echo "  \________(____  /\_/  (____  / \______  /  "
+echo "                \/           \/         \/   "
+echo "                                             "
+
+@REM SET M2_HOME=C:\home\bin\apache-maven-3.9.5
+SET JAVA_HOME=C:\home\bin\jdk-8
+CALL "C:\home\bin\apache-maven-3.9.5\bin\mvn.cmd" %*
+```
+mvn8.sh : 
+```bash
+#!/usr/bin/bash
+export JAVA_HOME="C:\home\bin\jdk-17"
+echo "      ____.                      _____________   "
+echo "     |    |____ ___  _______    /_   \______  \  "
+echo "     |    \__  \\  \/ /\__  \    |   |   /    /  "
+echo " /\__|    |/ __ \\   /  / __ \_  |   |  /    /   "
+echo " \________(____  /\_/  (____  /  |___| /____/    "
+echo "               \/           \/                   "
+mvn $@ 
+```
 
 ## Convert Charset
 ```java
