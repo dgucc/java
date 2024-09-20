@@ -1,0 +1,108 @@
+
+# Velocity 
+
+Velocity is a Java-based templating engine.
+
+
+## Create project
+```
+$ mvn archetype:generate -DgroupId=minfin -DartifactId=camel-velocity -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+$ cd camel-velocity/
+$ mkdir -p src/main/resources/vm
+```
+
+## Define Model to merge with the Velocity Template
+
+Model :  
+- src/main/java/minfin/model/Report.java  
+- src/main/java/minfin/model/EnumStatus.java  
+- src/main/java/minfin/model/Member.java  
+
+Template :  
+- src/main/resources/vm/mailBody.vm  
+
+```html
+
+```
+
+Execute :  
+
+`$ mvn exec:java -Dexec.mainClass=sandbox.App`  
+
+```java
+public static void main(String[] args) {
+     VelocityEngine velocityEngine = new VelocityEngine();
+        velocityEngine.init();
+
+        Template template = velocityEngine.getTemplate("src/main/resources/vm/mailBody.vm");
+        VelocityContext context = new VelocityContext();
+
+        // Populate Data 
+        Report mail = new Report();        
+        mail.setStatus(EnumStatus.ERROR);
+        List<Member> list = new ArrayList<>();
+        list.add(new Member(1, "Damien"));        
+        list.add(new Member(2, "Céline"));
+        list.add(new Member(3, "Amaury"));
+        mail.setMembers(list);
+
+        context.put("body", mail);
+
+        StringWriter writer = new StringWriter();
+        template.merge(context, writer);
+
+        System.out.println(writer.toString());
+}
+```
+
+Result :  
+
+```html
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<body>
+    <h1>List of members</h1>
+    <table>
+    <thead>
+        <tr>
+            <th align="right">id</th>
+            <th>name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="right">1</td>
+            <td>Damien</td>
+        </tr>
+        <tr>
+            <td align="right">2</td>
+            <td>Céline</td>
+        </tr>
+        <tr>
+            <td align="right">3</td>
+            <td>Amaury</td>
+        </tr>
+    </tbody>
+    </table>
+
+</body>
+</html>
+```
+
+Or
+
+```html 
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<body>
+    <h1>Error : Data not ready...</h1>
+
+</body>
+</html>
+---
+
+## Reference 
+
+[Apache Velocity Tutorial](https://www.javaguides.net/2019/11/apache-velocity-tutorial.html)
