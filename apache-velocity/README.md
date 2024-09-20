@@ -22,7 +22,34 @@ Template :
 - src/main/resources/vm/mailBody.vm  
 
 ```html
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<body>
+#if($body.status == "ERROR")
+    <h1>Error : Data not ready...</h1>
+#else
+    <h1>List of members</h1>
+    <table>
+    <thead>
+        <tr>
+            <th align="right">id</th>
+            <th>name</th>
+        </tr>
+    </thead>
+    <tbody>
+#foreach($member in $body.members)
+        <tr>
+            <td align="right">$member.id</td>
+            <td>$member.name</td>
+        </tr>
+#end 
+    </tbody>
+    </table>
+#end
 
+</body>
+</html>
 ```
 
 Execute :  
