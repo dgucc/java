@@ -4,11 +4,30 @@
 Velocity is a Java-based templating engine.
 
 
-## Create project
-```
+## Setup project
+
+```bash
 $ mvn archetype:generate -DgroupId=minfin -DartifactId=camel-velocity -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 $ cd camel-velocity/
 $ mkdir -p src/main/resources/vm
+```
+```xml
+<dependency>
+  <groupId>junit</groupId>
+  <artifactId>junit</artifactId>
+  <version>3.8.1</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>org.apache.velocity</groupId>
+  <artifactId>velocity</artifactId>
+  <version>1.7</version>
+</dependency>
+<dependency>
+  <groupId>org.apache.velocity</groupId>
+  <artifactId>velocity-tools</artifactId>
+  <version>2.0</version>
+</dependency>
 ```
 
 ## Define Model to merge with the Velocity Template
