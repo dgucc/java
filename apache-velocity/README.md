@@ -85,7 +85,7 @@ public static void main(String[] args) {
 
         // Populate Data 
         Report mail = new Report();        
-        mail.setStatus(EnumStatus.ERROR);
+        mail.setStatus(EnumStatus.READY);
         List<Member> list = new ArrayList<>();
         list.add(new Member(1, "Damien"));        
         list.add(new Member(2, "Céline"));
