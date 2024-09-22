@@ -48,6 +48,21 @@ Launch IntelliJ: `/opt/idea/bin/idea.sh`
 
 Create launcher : Menu Tools > "Create Desktop Entry"  
 
+
+Add contextual menu "Open with Intellij" in linux mint    
+
+create file ~/.local/share/nemo/actions/intellij.nemo_action :  
+
+```
+[Nemo Action]
+Name=Open in Intellij
+Comment=Open with Intellij
+Exec="/opt/idea/bin/idea.sh" %F
+Icon-Name=intellij
+Selection=Any
+Extensions=dir;
+```
+
 ---
 
 ## Wi-Fi QR-Code
