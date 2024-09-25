@@ -31,6 +31,10 @@ http://localhost:8080/rest/test/hello/WORLD
 `$ lsof -i:8080`  
 `$ kill -9 <PID>`  
 
+with cygwin :  
+`$ netstat -aonp tcp | awk  '$4 == "LISTENING" && $2 ~ /:8080$/ '`  
+
+
 ## json to csv : jq
 
 Extract selected fields + arithmetic on fields X and Y :   
