@@ -69,6 +69,13 @@ Extensions=dir;
 
 Sample to generate QRCode for WiFi  
 
+## 8080 Already in use :  
+`$ lsof -i:8080`  
+`$ kill -9 <PID>`  
+
+with cygwin :  
+`$ netstat -aonp tcp | awk  '$4 == "LISTENING" && $2 ~ /:8080$/ '`  
+
 ## Get rid of "WARNING: An illegal reflective access operation has occurred"
 ```
 import java.lang.reflect.Field;
