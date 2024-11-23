@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>sandbox</groupId>
+  <artifactId>hibernate-tools-test</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>hibernate-tools-test</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <hibernate.version>6.5.2.Final</hibernate.version>
+    <db2.version>9.7FP6</db2.version>
+    <java.version>17</java.version>
+  </properties>
+
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.hibernate.tool</groupId>
+        <artifactId>hibernate-tools-maven</artifactId>
+        <version>${hibernate.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.hibernate.tool</groupId>
+            <artifactId>hibernate-tools-orm</artifactId>
+            <version>${hibernate.version}</version>
+          </dependency>
+          <!-- db2 -->
+          <dependency>
+            <groupId>com.ibm.db2</groupId>
+            <artifactId>db2jcc4</artifactId>
+            <version>${db2.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>entity-generation</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>hbm2java</goal>
+            </goals>
+            <configuration>
+              <ejb3>true</ejb3>
+              <jdk5>false</jdk5>
+              <revengFile>src/main/resources/hibernate.reveng.xml</revengFile>
+              <!-- <outputDirectory>reveng</outputDirectory> -->
+              <templatePath>${project.basedir}/src/main/resources/templates/</templatePath>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
