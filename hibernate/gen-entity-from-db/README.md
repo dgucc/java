@@ -17,7 +17,7 @@ $ mkdir -p src/main/resources && mkdir -p log
 
 ## hibernate.properties
 
-Connections parameters  
+Connections parameters 
 src\main\resources\hibernate.properties :  
 ```properties
 hibernate.connection.driver_class=com.ibm.db2.jcc.DB2Driver
@@ -57,7 +57,7 @@ src\main\resources\hibernate.reveng.xml :
 	
 	<table-filter match-name="BULLSHIT_TABLE" exclude="true" />
 
-	<table-filter match-name=".*"  package="minfin"/>
+	<table-filter match-name=".*"  package="com.example"/>
 
 </hibernate-reverse-engineering>
 
@@ -67,6 +67,7 @@ src\main\resources\hibernate.reveng.xml :
 ## Customize Annotations Generation
 
 Move annotations from method to field declaration by modifying Templates
+Extract the templates files from hibernate-tools-5.2.8.Final.jar
 src/main/resources/templates/pojo :  
   - Ejb3FieldGetAnnotation.ftl  
   - Pojo.ftl  
