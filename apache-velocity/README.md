@@ -7,8 +7,8 @@ Velocity is a Java-based templating engine.
 ## Setup project
 
 ```bash
-$ mvn archetype:generate -DgroupId=minfin -DartifactId=camel-velocity -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
-$ cd camel-velocity/
+$ mvn archetype:generate -DgroupId=sandbox -DartifactId=apache-velocity -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+$ cd apache-velocity/
 $ mkdir -p src/main/resources/vm
 ```
 ```xml
@@ -33,9 +33,9 @@ $ mkdir -p src/main/resources/vm
 ## Define Model to merge with the Velocity Template
 
 Model :  
-- src/main/java/minfin/model/Report.java  
-- src/main/java/minfin/model/EnumStatus.java  
-- src/main/java/minfin/model/Member.java  
+- src/main/java/sandbox/model/Report.java  
+- src/main/java/sandbox/model/EnumStatus.java  
+- src/main/java/sandbox/model/Member.java  
 
 Template :  
 - src/main/resources/vm/mailBody.vm  
