@@ -57,7 +57,7 @@ src\main\resources\hibernate.reveng.xml :
 	
 	<table-filter match-name="BULLSHIT_TABLE" exclude="true" />
 
-	<table-filter match-name=".*"  package="com.example"/>
+	<table-filter match-name=".*"  package="sandbox"/>
 
 </hibernate-reverse-engineering>
 
