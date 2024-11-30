@@ -29,6 +29,38 @@ Check the default version:
 `$ java --version` 
 
 ---
+## Display current git branch name in windows command prompt
+
+[stackoverflow](https://stackoverflow.com/questions/36047706/show-current-git-branch-name-in-windows-command-prompt)
+[AutoRun](https://ss64.com/nt/syntax-autoexec.html) 
+[Doskey](https://superuser.com/questions/118655/auto-execute-command-after-going-to-a-folder-with-the-cd-command)
+[Prompt](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/prompt)
+
+C:\home\bin\maven-bin\cd-git.bat :  
+```cmd
+@echo off
+CD %*
+where git >nul 2>&1
+if %errorlevel% neq 0 (
+	goto :eof
+)
+for /f "usebackq tokens=* delims=" %%g in (`git rev-parse --is-inside-work-tree ^>nul 2^>^&1 ^&^& git branch --show-current`) do (
+	set branchname=%%g
+)
+if "%branchname%"=="" (
+	prompt $p$g
+) else (
+	prompt $p $c$e[36m%branchname%$e[0m$f$_$$$s
+)
+set branchname=
+```
+
+regtool  
+-w : access 64 bit registry  
+-s : set type to REG_SZ (string)  
+`> regtool -w -s set '/HKCU/Software/Microsoft/Command Processor/AutoRun' 'if exist C:\home\bin\maven-bin\cd-git.bat doskey cd=C:\home\bin\maven-bin\cd-git.bat $*' ` 
+
+---
 
 [maven simple example](https://github.com/dgucc/java/tree/main/my-app)  
 
