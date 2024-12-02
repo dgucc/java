@@ -1,5 +1,8 @@
 # Validate a JAXB Object Model With an XML Schema 
 
+> Java 17
+> jakarta.xml.bind-api 4.0.2
+
 http://blog.bdoughan.com/2010/11/validate-jaxb-object-model-with-xml.html  
 
 ## Create Project
