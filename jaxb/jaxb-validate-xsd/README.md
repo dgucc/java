@@ -6,7 +6,7 @@
 http://blog.bdoughan.com/2010/11/validate-jaxb-object-model-with-xml.html  
 
 ## Create Project
-`$ mvn archetype:generate -DgroupId=minfin -DartifactId=jaxb-validate-xsd -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false` 
+`$ mvn archetype:generate -DgroupId=sandbox -DartifactId=jaxb-validate-xsd -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false` 
 
 ```xml
 <dependency>
@@ -44,7 +44,7 @@ https://visionplaymedia.netlify.app/blog/2020-06-25-custom-error-handler-while-v
 ## Execute   
 ```shell
 $ mvn clean compile
-$ mvn exec:java -Dexec.mainClass="minfin.App"
+$ mvn exec:java -Dexec.mainClass="sandbox.App"
 ```
 
 > Output
