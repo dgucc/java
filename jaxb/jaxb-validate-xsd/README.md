@@ -1,11 +1,11 @@
-# Validate a JAXB Object Model With an XML Schema 
+[28/11/2024 jeu.]
 
-[validate-jaxb-object-against-xsd](http://blog.bdoughan.com/2010/11/validate-jaxb-object-model-with-xml.html)  
+# Validate a JAXB Object Model With an XML Schema 
+http://blog.bdoughan.com/2010/11/validate-jaxb-object-model-with-xml.html
 
 ## Create Project
-`$ mvn archetype:generate -DgroupId=minfin -DartifactId=jaxb-validate-xsd -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false` 
+$ mvn archetype:generate -DgroupId=minfin -DartifactId=jaxb-validate-xsd -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 
-```xml
 <dependency>
 	<groupId>javax.xml.bind</groupId>
 	<artifactId>jaxb-api</artifactId>
@@ -21,30 +21,26 @@
 	<artifactId>jaxb-runtime</artifactId>
 	<version>4.0.0</version>
 </dependency>
-```
 
 ## Migrate from javax.xml to jakarta.xml
+GroupId : javax.xml.bind -> jakarta.xml.bind
+ArtifactId : javax.xml.bind -> jakarta.xml.bind-api
 
-GroupId : javax.xml.bind -> jakarta.xml.bind  
-ArtifactId : javax.xml.bind -> jakarta.xml.bind-api  
+GroupId: com.sun.xml.bind -> org.glassfish.jaxb
+ArtifactId: jaxb-impl -> jaxb-runtime
 
-GroupId: com.sun.xml.bind -> org.glassfish.jaxb  
-ArtifactId: jaxb-impl -> jaxb-runtime  
+Rename package name
+import javax.xml.bind -> jakarta.xml.bind
 
-Rename package name  
-import javax.xml.bind -> jakarta.xml.bind  
-
-## Customize SAXParseException message 
-https://visionplaymedia.netlify.app/blog/2020-06-25-custom-error-handler-while-validating-xml-against-xsd-schema/  
+## Customize SAXParseException message :
+https://visionplaymedia.netlify.app/blog/2020-06-25-custom-error-handler-while-validating-xml-against-xsd-schema/
 
 
 ## Execute   
-```
 $ mvn clean compile
 $ mvn exec:java -Dexec.mainClass="minfin.App"
-```
 
-> Output
+> Output 
 *** Started ***
 ERROR: cvc-maxLength-valid: Value 'Jane Doe' with length = '8' is not facet-valid with respect to maxLength '5' for type 'stringMaxSize5'.
 ERROR: cvc-type.3.1.3: The value 'Jane Doe' of element 'name' is not valid.
@@ -53,12 +49,10 @@ ERROR: cvc-complex-type.2.4.f: 'phone-number' can occur a maximum of '2' times i
 
 -----------------
 
-## Misc
-### Migrate from javax.xml to jakarta.xml with OpenRewrite
 
-- Try to refactor with OpenRewrite : https://docs.openrewrite.org/recipes/java/migrate/jakarta/javaxxmlbindmigrationtojakartaxmlbind  
+# Migrate from javax.xml to jakarta.xml
+- Try to refactor with OpenRewrite : https://docs.openrewrite.org/recipes/java/migrate/jakarta/javaxxmlbindmigrationtojakartaxmlbind
 
-```xml
 <build>
     <plugins>
       <plugin>
@@ -81,10 +75,19 @@ ERROR: cvc-complex-type.2.4.f: 'phone-number' can occur a maximum of '2' times i
       </plugin>
     </plugins>
   </build>
-```
-`$ mvn rewrite:run`
 
- OR   
+  $ mvn rewrite:run
 
-`mvn -U org.openrewrite.maven:rewrite-maven-plugin:run -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE -Drewrite.activeRecipes=org.openrewrite.java.migrate.jakarta.JavaxXmlBindMigrationToJakartaXmlBind -Drewrite.exportDatatables=true`  
+  OR 
 
+  mvn -U org.openrewrite.maven:rewrite-maven-plugin:run -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE -Drewrite.activeRecipes=org.openrewrite.java.migrate.jakarta.JavaxXmlBindMigrationToJakartaXmlBind -Drewrite.exportDatatables=true
+
+
+Network Issues ???
+- "old" proxy
+export http_proxy=http://david.gucciardi@10.20.98.14:8080
+export https_proxy=$http_proxy
+
+- "new" proxy
+export http_proxy=http://david.gucciardi@10.20.98.108:8080 
+export https_proxy=$http_proxy
