@@ -1,45 +1,55 @@
-[20/11/2024 mer.]
+# hyperjaxb3 and Java 17
 
-# Working version with src/main/resoures/126-beps13-notification-v1-51.xsd + src/test/samples  
-**Execute**  
+from **xsd** generate entities with  
+    **jaxb** annotations  
+    **jpa** annotations  
+    **ddl** create-drop sql
 
-`$ mvn clean compile exec:java`  
-`$ mvn -Phibernate clean compile exec:java`  
-
-Output :  
->[...]
->CompanyNumber : 1234567890  
->CountryCodes :CompanyName  
->test.getId() : 1  
->*** Terminated ***  
+> hyperjaxb3
+> java 17
+> hsqldb
 
 
-**Specify Schema Name** :  
->src\main\resources\META-INF\orm.xml
+## Example with a given xsd
 
-**Complete src\main\resources\persistence-h2.properties**
+- Clean out the xsd file
+> src/main/resoures/126-beps13-notification-v1-51.xsd
+
+- Customize jaxb+orm generation (id, table names):  
+> src/main/resources/binding.xjb
+
+
+- To make it work with HSQLDB :  
+> src\main\resources\META-INF\orm.xml : Specify PUBLIC as schema Name  
+> src\main\resources\persistence-hsqldb.properties :  
 
 ```
 jakarta.persistence.schema-generation.database.action=drop-and-create
 jakarta.persistence.schema-generation.scripts.action=drop-and-create
 jakarta.persistence.schema-generation.scripts.create-target=target/test-database-sql/ddl-create.sql
 jakarta.persistence.schema-generation.scripts.drop-target=target/test-database-sql/ddl-drop.sql
-n
+
 hibernate.cache.provider_class=org.hibernate.cache.HashtableCacheProvider
 hibernate.jdbc.batch_size=0
 ```
-**Persistence Unit Name**
-- Retrieve the PersistenceUnitName in target\generated-sources\xjc\META-INF\persistence.xml  
-- Create a EntityManager Accordingly (App.java) :    
+
+- Retrieve the generated **Persistence Unit Name** :  
+> target\generated-sources\xjc\META-INF\persistence.xml  
+
+- Create a EntityManager Accordingly (src/main/java/minfin/App.java) :    
+
 ```java
-entityManagerFactory = Persistence.createEntityManagerFactory("be.fgov.minfin.beps13.notification.v1:oecd.ties.isocbctypes.v1", persistenceProperties);
+entityManagerFactory = Persistence.createEntityManagerFactory("be.fgov.minfin.beps13.notification.v1_51:oecd.ties.isocbctypes.v1", persistenceProperties);
 ```
+Marshall declaration just after persisting it to see the generated Id's
 
----
-# ChangeLog
 
-Marshall declaration just after persisting it  
-to see the generated ID's (cf. attribute Hjid) :  
+**Execute**  
+
+`$ mvn clean compile exec:java`  
+`$ mvn -Phibernate clean compile exec:java`  
+
+Output :  
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -90,6 +100,13 @@ to see the generated ID's (cf. attribute Hjid) :
     </MotherRep>
 </ns2:Declaration275CBCNOT>
 ```
+
+
+---
+# ChangeLog
+
+- Use hsqldb  
+- Customize jaxb-orm generation (binding.xjb)  
 
 
 ---
