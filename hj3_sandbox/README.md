@@ -1,5 +1,6 @@
 # hyperjaxb3 and Java 17
 
+
 from **xsd** generate entities with  
     **jaxb** annotations  
     **jpa** annotations  
