@@ -30,7 +30,6 @@ Refs:
 [Spring Boot With H2 Database](https://www.baeldung.com/spring-boot-h2-database)  
 [Documenter une API REST de Spring Boot avec Swagger](https://medium.com/@cindanojonathan.fr/documenter-une-api-rest-de-spring-boot-avec-swagger-78e12510ea35)
 
-
 ---
 
 # Tips
