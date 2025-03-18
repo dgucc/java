@@ -66,3 +66,14 @@ echo " \________(____  /\_/  (____  /  |___| /____/    "
 echo "               \/           \/                   "
 mvn $@ 
 ```
+
+**H2 Database Tips**
+
+Prepare a h2 "test.mv.db" file by executing a script.sql (DDL + DML)  
+`$ java -cp h2*.jar org.h2.tools.RunScript -url jdbc:h2:mem:test -script script.sql `  
+
+Launch h2-console using "test.mv.db"  
+`$ java -jar h2*.jar -url "jdbc:h2:file:./test" `  
+> Automatically opens http://localhost:8080/h2-console/ in browser
+
+
