@@ -229,6 +229,11 @@ final Charset fromCharset = Charset.forName("windows-1252");
 final Charset toCharset = Charset.forName("UTF-8");
 return new String(input.getBytes(fromCharset), toCharset);
 ```  
+
+## Maven : create new version of project
+
+`mvn8 versions:set -DprocessAllModules=true -DgenerateBackupPoms=false -DnewVersion=2.0.0.0-SNAPSHOT`  
+
 ---
 
 ## Standard Formats 
