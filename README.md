@@ -122,6 +122,34 @@ Selection=Any
 Extensions=dir;
 ```
 
+Add contextual menu "Open with Visual Studio Code"  
+
+[Windows]
+"C:\home\apps\VSCode-win32-x64-1.84.2\Code.exe %1"  
+
+```
+reg.exe add "HKCU\Software\Classes\Directory\Background\Shell\vscode" /f /ve /d "Open with &vscode"
+reg.exe add "HKCU\Software\Classes\Directory\Background\Shell\vscode" /v "Icon2" /t REG_SZ /f /d "C:\home\apps\VSCode-win32-x64-1.84.2\Code.exe,0"
+reg.exe add "HKCU\Software\Classes\Directory\Background\Shell\vscode\command" /f /ve /d "C:\home\apps\VSCode-win32-x64-1.84.2\Code.exe %1"
+
+reg.exe add "HKCU\Software\Classes\Directory\Shell\vscode" /f /ve /d "Open with &vscode"
+reg.exe add "HKCU\Software\Classes\Directory\Shell\vscode" /v "Icon" /t REG_SZ /f /d "C:\home\apps\VSCode-win32-x64-1.84.2\Code.exe,0"
+reg.exe add "HKCU\Software\Classes\Directory\Shell\vscode\command" /d "C:\home\apps\VSCode-win32-x64-1.84.2\Code.exe %1"
+```
+[Linux]
+for linux ~/.local/share/nemo/actions/vscode.nemo_action :   
+
+```
+[Nemo Action]
+Name=Open in VS Code
+Comment=Open in VS Code
+Exec=code "%F"
+Icon-Name=visual-studio-code
+Selection=Any
+Extensions=dir;
+```
+
+
 ---
 
 ## Wi-Fi QR-Code
@@ -201,6 +229,11 @@ final Charset fromCharset = Charset.forName("windows-1252");
 final Charset toCharset = Charset.forName("UTF-8");
 return new String(input.getBytes(fromCharset), toCharset);
 ```  
+
+## Maven : create new version of project
+
+`mvn8 versions:set -DprocessAllModules=true -DgenerateBackupPoms=false -DnewVersion=2.0.0.0-SNAPSHOT`  
+
 ---
 
 ## Standard Formats 
