@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: Exemple d'API
+  version: 1.0.0
+paths:
+  /utilisateur:
+    get:
+      summary: "Récupérer un utilisateur"
+      responses:
+        '200':
+          description: "Utilisateur récupéré avec succès"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 123
+                  nom:
+                    type: string
+                    example: "Jean Dupont"
+                  adresse:
+                    type: object
+                    properties:
+                      rue:
+                        type: string
+                        example: "123 rue de Paris"
+                      code_postal:
+                        type: string
+                        example: "75001"
+                      ville:
+                        type: string
+                        example: "Paris"
+                    required:
+                      - rue
+                      - code_postal
+                      - ville
+                required:
+                  - id
+                  - nom
+                  - adresse
