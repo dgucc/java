@@ -210,10 +210,10 @@ echo "                                             "
 SET JAVA_HOME=C:\home\bin\jdk-8
 CALL "C:\home\bin\apache-maven-3.9.5\bin\mvn.cmd" %*
 ```
-mvn8.sh : 
+mvn17.sh : 
 ```bash
-#!/usr/bin/bash
-export JAVA_HOME="C:\home\bin\jdk-17"
+#!/usr/bin/env bash
+export JAVA_HOME="/usr/lib/jvm/java-1.17.0-openjdk-amd64"
 echo "      ____.                      _____________   "
 echo "     |    |____ ___  _______    /_   \______  \  "
 echo "     |    \__  \\  \/ /\__  \    |   |   /    /  "
