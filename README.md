@@ -2,6 +2,15 @@
 
 ![Avatar](https://github.com/dgucc/sandbox/blob/main/tips/images/avatar.gif)  
 
+```
+cd java/
+git config user.name "dgucc"
+git config user.email "djvu.guchz@gmail.com"
+git remote add origin git@gitlab.com:dgucc/java.git
+git branch -M main
+git push -uf origin main
+```
+
 ---
 
 ## Install OpenJDK on Linux Mint
