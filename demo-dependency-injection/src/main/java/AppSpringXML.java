@@ -7,7 +7,7 @@ import service.IService;
 
 public class AppSpringXML {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("app-config.xml");
         IService service = context.getBean(IService.class);
         System.out.println("Result : " + service.calcul());
     }
